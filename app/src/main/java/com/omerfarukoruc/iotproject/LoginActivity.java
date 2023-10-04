@@ -12,6 +12,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import androidx.core.splashscreen.SplashScreen;
+
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -86,6 +88,7 @@ public class LoginActivity extends AppCompatActivity
                 {
                     // Login failed, display an error message
                     Toast.makeText(LoginActivity.this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();
+                    //TODO
                 }
             });
         }

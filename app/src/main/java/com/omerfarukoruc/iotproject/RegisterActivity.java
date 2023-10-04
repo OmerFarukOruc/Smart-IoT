@@ -16,6 +16,8 @@ public class RegisterActivity extends AppCompatActivity
     private EditText nameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
+    private EditText confirmPasswordEditText;
+
     private Button registerButton;
 
     @Override
@@ -28,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         registerButton = findViewById(R.id.registerButton);
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
 
         registerButton.setOnClickListener(v -> register());
     }
@@ -36,10 +39,18 @@ public class RegisterActivity extends AppCompatActivity
         String name = nameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        String confirmPassword = confirmPasswordEditText.getText().toString();
+
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
         {
             showToast("Please enter all required fields.");
+            return;
+        }
+
+        if (!password.equals(confirmPassword))
+        {
+            showToast("Passwords do not match.");
             return;
         }
 

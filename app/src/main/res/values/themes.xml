@@ -1,13 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.IotProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryVariant">@color/green_dark</item>
+        <item name="colorPrimary">@color/blue_material_600</item>
+        <item name="colorPrimaryVariant">@color/blue_material_600</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/blue</item>
         <item name="colorSecondaryVariant">@color/blue_dark</item>
         <item name="colorOnSecondary">@color/black</item>>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="Theme.IotProject" parent="Base.Theme.IotProject" />
+
+    <style name="Base.Theme.IotProject.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/blue_material_600</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="windowSplashScreenAnimationDuration">200</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.IotProject</item>
+    </style>
 </resources>

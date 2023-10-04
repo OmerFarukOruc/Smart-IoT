@@ -14,8 +14,12 @@
     <color name="blue">#0288D1</color>
     <color name="blue_dark">#005B9F</color>
     <color name="blue_light">#81D4FA</color>
+    <color name="blue_material_600">#1E88E5</color>
+
 
     <color name="button_darker">#81D4FA</color>
     <color name="button_original">#81D4FA</color>
+
+
 
 </resources>
