@@ -1,11 +1,22 @@
 package com.omerfarukoruc.iotproject;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
@@ -32,10 +43,6 @@ public class LoginActivity extends AppCompatActivity
     private TextInputLayout passwordInputLayout;
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
-    private Button loginButton;
-    private Button forgotPasswordButton;
-    private Button registerButton;
-
 
     private FirebaseAuth mAuth;
 
@@ -53,12 +60,59 @@ public class LoginActivity extends AppCompatActivity
         passwordInputLayout = findViewById(R.id.password_input_layout);
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
-        loginButton = findViewById(R.id.login_button);
-        forgotPasswordButton = findViewById(R.id.forgot_password_button);
-        registerButton = findViewById(R.id.register_button);
+        Button loginButton = findViewById(R.id.login_button);
+        Button forgotPasswordButton = findViewById(R.id.forgot_password_button);
+        Button registerButton = findViewById(R.id.register_button);
 
         loginButton.setOnClickListener(v ->login(Objects.requireNonNull(emailInput.getText()).toString(), Objects.requireNonNull(passwordInput.getText()).toString()));
         registerButton.setOnClickListener(v -> register());
+        forgotPasswordButton.setOnClickListener(v -> showForgotPasswordDialog());
+    }
+
+    private void showForgotPasswordDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Forgot Password");
+        builder.setMessage("Enter your email address to reset your password");
+
+        final EditText emailEditText = new EditText(this);
+        emailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        builder.setView(emailEditText);
+
+        builder.setPositiveButton("Reset", (dialog, which) ->
+        {
+            String email = emailEditText.getText().toString().trim();
+            if (!TextUtils.isEmpty(email))
+            {
+                resetPassword(email);
+            }
+
+            else
+            {
+                showToast("Please enter your email address.");
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void resetPassword(String email)
+    {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task ->
+        {
+            if (task.isSuccessful())
+            {
+                showToast("Password reset email sent. Please check your inbox.");
+            }
+
+            else
+            {
+                showToast("Failed to send password reset email: " + Objects.requireNonNull(task.getException()).getMessage());
+            }
+        });
     }
 
     private void register()

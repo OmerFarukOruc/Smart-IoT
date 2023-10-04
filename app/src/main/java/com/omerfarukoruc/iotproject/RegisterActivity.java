@@ -3,12 +3,16 @@ package com.omerfarukoruc.iotproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity
 {
@@ -17,8 +21,8 @@ public class RegisterActivity extends AppCompatActivity
     private EditText emailEditText;
     private EditText passwordEditText;
     private EditText confirmPasswordEditText;
-
-    private Button registerButton;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,13 +33,17 @@ public class RegisterActivity extends AppCompatActivity
         nameEditText = findViewById(R.id.nameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
-        registerButton = findViewById(R.id.registerButton);
+        Button registerButton = findViewById(R.id.registerButton);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
 
         registerButton.setOnClickListener(v -> register());
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    private void register() {
+    private void register()
+    {
         String name = nameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -54,10 +62,41 @@ public class RegisterActivity extends AppCompatActivity
             return;
         }
 
-        // Perform registration logic here
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task ->
+        {
+            if (task.isSuccessful())
+            {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null)
+                {
+                    String userId = user.getUid();
+                    saveUserData(userId, name, email);
+                }
+            }
+            else
+            {
+                showToast("Registration failed: " + Objects.requireNonNull(task.getException()).getMessage());
+            }
+        });
+    }
 
-        showToast("Registration successful!");
-        finish(); // Finish the activity and go back to LoginActivity
+    private void saveUserData(String userId, String name, String email)
+    {
+        User user = new User(name, email);
+        mDatabase.child("Users").child(userId).setValue(user).addOnCompleteListener(task ->
+        {
+            if (task.isSuccessful())
+            {
+                showToast("Registration successful!");
+                startActivity( new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
+            }
+
+            else
+            {
+                showToast("Failed to save user data: " + Objects.requireNonNull(task.getException()).getMessage());
+            }
+        });
     }
 
     private void showToast(String message)

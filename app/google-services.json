@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "284151052580",
+    "firebase_url": "https://iot-project-oruc-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "iot-project-oruc",
     "storage_bucket": "iot-project-oruc.appspot.com"
   },
