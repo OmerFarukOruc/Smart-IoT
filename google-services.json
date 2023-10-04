@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "284151052580",
+    "project_id": "iot-project-oruc",
+    "storage_bucket": "iot-project-oruc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284151052580:android:c56254950548e9b11c1bb1",
+        "android_client_info": {
+          "package_name": "com.omerfarukoruc.iotproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZoeANz5z6h_8sxAjTtbxp73h9l1lfKLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
