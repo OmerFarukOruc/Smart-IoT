@@ -1,10 +1,8 @@
 package com.omerfarukoruc.iotproject;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -15,15 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import androidx.core.splashscreen.SplashScreen;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -71,6 +65,8 @@ public class LoginActivity extends AppCompatActivity
 
     private void showForgotPasswordDialog()
     {
+        // TODO: Material Alert Dialog Builder
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Forgot Password");
         builder.setMessage("Enter your email address to reset your password");
@@ -142,7 +138,6 @@ public class LoginActivity extends AppCompatActivity
                 {
                     // Login failed, display an error message
                     Toast.makeText(LoginActivity.this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();
-                    //TODO
                 }
             });
         }

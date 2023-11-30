@@ -39,12 +39,14 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth:22.1.2")
-    implementation("com.google.firebase:firebase-database:20.2.2")
+    implementation("com.google.firebase:firebase-auth:22.3.0")
+    implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.core:core-splashscreen:1.0.0-alpha01")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("com.google.android.material:material:1.10.0")
+
 
 
     testImplementation("junit:junit:4.13.2")
